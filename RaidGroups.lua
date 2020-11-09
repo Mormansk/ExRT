@@ -291,7 +291,7 @@ function module.options:Load()
 		module:ProcessRoster()
 	end) 
 
-	self.presetList = ELib:ScrollList(self):Size(190,554):Point("TOPRIGHT",-10,-40):AddDrag()
+	self.presetList = ELib:ScrollList(self):Size(190,534):Point("TOPRIGHT",-10,-40):AddDrag()
 	ELib:Text(self,L.RaidGroupsQuickLoad..":"):Point("BOTTOMLEFT",self.presetList,"TOPLEFT",5,3):Color():Shadow()
 
 	self.presetList.ButtonRemove = CreateFrame("Button",nil,self.presetList)
@@ -423,6 +423,28 @@ function module.options:Load()
 		module.options:UpdateList()
 	end
 
+	local function SaveImportData(_,importData)
+		if not importData or string.trim(importData) == "" then
+			return
+		end
+		
+		local testRaid = {strsplit(";", importData)}
+		
+		local new = {
+			name = testRaid[1],
+			time = time(),
+		}
+		for i=1,40 do 
+			local text = module.options.edits[i]:GetText()
+			if testRaid[i+1] ~= nil and testRaid[i+1] ~= "Empty" then
+				new[i] = testRaid[i+1]
+			end
+		end
+		VExRT.RaidGroups.profiles[#VExRT.RaidGroups.profiles+1] = new
+
+		module.options:UpdateList()
+	end
+
 	local function SaveInputOnEdit(self)
 		local text = self:GetText()
 		if text and string.trim(text) ~= "" then
@@ -434,6 +456,10 @@ function module.options:Load()
 
 	self.presetListSave = ELib:Button(self,L.RaidGroupsSave):Size(192,20):Point("TOP",self.presetList,"BOTTOM",0,-5):OnClick(function(self) 
 		ExRT.F.ShowInput(L.RaidGroupsEnterName,SaveData,nil,nil,nil,SaveInputOnEdit)		
+	end)
+	
+	self.presetImport = ELib:Button(self,L.RaidGroupsImport):Size(192,20):Point("TOP",self.presetListSave,"BOTTOM",0,-5):OnClick(function(self) 
+		ExRT.F.ShowInput(L.RaidGroupsEnterImport,SaveImportData,nil,nil,nil,SaveInputOnEdit)		
 	end)
 
 	self:UpdateList()
