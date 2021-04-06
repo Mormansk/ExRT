@@ -2,7 +2,7 @@ local GlobalAddonName, ExRT = ...
 
 local VExRT = nil
 
-local module = ExRT.mod:New("RaidAttendance",ExRT.L.Attendance)
+local module = ExRT:New("RaidAttendance",ExRT.L.Attendance)
 local ELib,L = ExRT.lib,ExRT.L
 
 module.db.diffNames = {
@@ -811,7 +811,7 @@ end
 
 function module.main:ADDON_LOADED()
 	VExRT = _G.VExRT
-	VExRT.Attendance = VExRT.Attendance or {enabled=2}
+	VExRT.Attendance = VExRT.Attendance or {}
 	VExRT.Attendance.data = VExRT.Attendance.data or {}
 	VExRT.Attendance.alts = VExRT.Attendance.alts or {}
 	

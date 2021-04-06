@@ -2,7 +2,7 @@ local GlobalAddonName, ExRT = ...
 
 local VExRT = nil
 
-local module = ExRT.mod:New("AutoLogging",ExRT.L.Logging)
+local module = ExRT:New("AutoLogging",ExRT.L.Logging)
 local ELib,L = ExRT.lib,ExRT.L
 
 module.db.minRaidMapID = 1861
@@ -78,6 +78,14 @@ function module.options:Load()
 		end
 	end)
 
+	self.torghast = ELib:Check(self,GetDifficultyInfo and GetDifficultyInfo(167) or "Torghast",VExRT.Logging.enableTorghast):Point("TOP",self.raidLFR,"BOTTOM",0,-5):Point("LEFT",self,15,0):OnClick(function(self) 
+		if self:GetChecked() then
+			VExRT.Logging.enableTorghast = true
+		else
+			VExRT.Logging.enableTorghast = nil
+		end
+	end)
+
 	if ExRT.isClassic then
 		self.shtml1:SetText(RAID)
 		self.enable3ppScenario:Hide()
@@ -86,6 +94,7 @@ function module.options:Load()
 		self.raidHeroic:Hide()
 		self.raidNormal:Hide()
 		self.raidLFR:Hide()
+		self.torghast:Hide()
 	end
 end
 
@@ -132,12 +141,15 @@ local function GetCurrentMapForLogging()
 			return true
 		elseif VExRT.Logging.enable5ppLegion and (difficulty == 8 or difficulty == 23) and (tonumber(mapID) and (mapID >= module.db.minPartyMapID or module.db.mapsToLog_5ppl[mapID])) then
 			return true
+		elseif VExRT.Logging.enableTorghast and difficulty == 167 then
+			return true
 		elseif VExRT.Logging.enable3ppBFA and zoneType == 'scenario' and (maxPlayers or 0) > 1 and (tonumber(mapID) and mapID >= module.db.minPartyMapID) then
 			return true
 		end
 	end
 	return false
 end
+module.GetCurrentMapForLogging = GetCurrentMapForLogging
 
 local prevZone = false
 local function ZoneNewFunction()
