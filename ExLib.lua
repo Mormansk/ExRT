@@ -9,7 +9,6 @@ ExRT.lib.CreateColorPickButton(parent,width,height,relativePoint,x,y,cR,cG,cB,cA
 ExRT.lib.CreateGraph(parent,width,height,relativePoint,x,y)
 ExRT.lib.CreateHelpButton(parent,helpPlateArray,isTab)
 
-
 version 2.0
 
 All functions:
@@ -24,19 +23,80 @@ All functions:
 	:OnEnter(func)		-> SetScript("OnEnter",func)
 	:OnLeave(func)		-> SetScript("OnLeave",func)
 
--> ELib:Shadow(parent,size,edgeSize)
--> ELib:Slider(parent,text,isVertical,template)
-	:Range(min,max)		-> SetMinMaxValues(min,max)
-	:SetTo(value)		-> SetValue(value)
-	:OnChange(func)		-> SetScript("OnValueChanged",func)
+-> ELib:Border(parent,size,colorR,colorG,colorB,colorA,outside,layerCounter)
+-> ELib:Button(parent,text,template)
+	:Tooltip(str)		-> [add tooltip]
+-> ELib:Check(parent,text,state,template)
+	:Tooltip(str)		-> [add tooltip]
+	:Left([relativeX])	-> [move text to left side], relativeX default 2
+	:TextSize(size)
+	:AddColorState(isBorderInsteadText) -> Add red/green colors for [false: text; true: borders]
+-> ELib:DebugBack(parent)
+-> ELib:DropDown(parent,width,lines,template)
+	:SetText(str)		-> [set text]
+	:Tooltip(str)		-> [add tooltip]
 	:Size(width)		-> SetWidth(width)
-	:SetObey(bool)		-> SetObeyStepOnDrag(bool)
+	:AddText(text)		-> [add text at left side]
+-> ELib:DropDownButton(parent,defText,dropDownWidth,lines,template)
+	:Tooltip(str)		-> [add tooltip]
+-> ELib:Edit(parent,maxLetters,onlyNum,template)
+	:Text(str)		-> SetText(str)
+	:Tooltip(str)		-> [add tooltip]
+	:OnChange(func)		-> SetScript("OnTextChanged",func)
+	:OnFocus(gained,lost)	-> SetScript("OnFocusGained",gained) SetScript("OnEditFocusLost",lost)
+	:InsideIcon(texture,[size,[offset]])
+	:LeftText(text)		-> Add text at left
+	:TopText(text)		-> Add text at top
+	:BackgroundText(text)	-> Add text inside edit while not in focus
+	:ColorBorder(bool) or :ColorBorder(cR,cG,cB,cA) -> Set colors for border; [true: red; false: default]
+-> ELib:Frame(parent,template)
+	:Texture(texture,layer)	-> create and/or set texture
+	:Texture(cR,cG,cB,cA,layer) -> create and/or set texture
+	:TexturePoint(...)	-> add point to texture
+	:TextureSize(...)	-> set size to texture
+-> ELib:Icon(parent,textureIcon,size,isButton)
+	:Icon(texture)		-> SetTexture
+-> ELib:ListButton(parent,text,width,lines,template)
+	:Left()			-> [move text to left side]
+-> ELib:MultiEdit(parent)
+	:OnChange(func)		-> SetScript("OnTextChanged",func)
+	:Font(...)		-> SetFont(...)
+	:Hyperlinks()		-> enable hyperlinks in text (spells,items,etc)
+	:ToTop()		-> set scroll vaule to min
+	:GetTextHighlight()	-> get highlight positions [start,end]
+	:SetSyntax(syntax)	-> add colored text
+-> ELib:OneTab(parent,text,isOld)
+-> ELib:Popup(title,template)
+-> ELib:Radio(parent,text,checked,template)
 -> ELib:ScrollBar(parent,isOld)
 	:Range(min,max)		-> SetMinMaxValues(min,max)
 	:SetTo(value)		-> SetValue(value)
 	:OnChange(func)		-> SetScript("OnValueChanged",func)
 	:UpdateButtons()	-> [update up/down states]
 	:ClickRange(i)		-> [set value range for clicks on buttons]
+-> ELib:ScrollCheckList(parent,list)
+	:Update()		-> [update list]
+	:FontSize(size)		-> SetFont(font,size)
+-> ELib:ScrollFrame(parent,isOld)
+	:Height(px)		-> [set height]
+-> ELib:ScrollList(parent,list)
+	:Update()		-> [update list]
+	:FontSize(size)		-> SetFont(font,size)
+-> ELib:ScrollTableList(parent,...)
+				   where ... are width of columns, one always must be 0
+	:Update()		-> [update list]
+	:FontSize(size)		-> SetFont(font,size)
+-> ELib:ScrollTabsFrame(parent,...)
+-> ELib:Slider(parent,text,isVertical,template)
+	:Range(min,max)		-> SetMinMaxValues(min,max)
+	:SetTo(value)		-> SetValue(value)
+	:OnChange(func)		-> SetScript("OnValueChanged",func)
+	:Size(width)		-> SetWidth(width)
+	:SetObey(bool)		-> SetObeyStepOnDrag(bool)
+-> ELib:SliderBox(parent,list)
+	:SetTo(value)		-> [set value from list]
+-> ELib:Shadow(parent,size,edgeSize)
+-> ELib:ShadowInside(parent,enableBorder,enableLine)
 -> ELib:Tabs(parent,template,...)
 	:SetTo(page)		-> [set page]
 -> ELib:Text(parent,text,size,template)
@@ -52,72 +112,11 @@ All functions:
 	:Bottom()		-> SetJustifyV("BOTTOM")
 	:FontSize(size)		-> SetFont(font,size)
 	:Tooltip(anchor,isBut)	-> [add tooltip if text is corped]
--> ELib:Edit(parent,maxLetters,onlyNum,template)
-	:Text(str)		-> SetText(str)
-	:Tooltip(str)		-> [add tooltip]
-	:OnChange(func)		-> SetScript("OnTextChanged",func)
-	:OnFocus(gained,lost)	-> SetScript("OnFocusGained",gained) SetScript("OnEditFocusLost",lost)
-	:InsideIcon(texture,[size,[offset]])
-	:LeftText(text)		-> Add text at left
-	:TopText(text)		-> Add text at top
-	:BackgroundText(text)	-> Add text inside edit while not in focus
-	:ColorBorder(bool) or :ColorBorder(cR,cG,cB,cA) -> Set colors for border; [true: red; false: default]
--> ELib:ScrollFrame(parent,isOld)
-	:Height(px)		-> [set height]
--> ELib:Button(parent,text,template)
-	:Tooltip(str)		-> [add tooltip]
--> ELib:Icon(parent,textureIcon,size,isButton)
-	:Icon(texture)		-> SetTexture
--> ELib:Check(parent,text,state,template)
-	:Tooltip(str)		-> [add tooltip]
-	:Left([relativeX])	-> [move text to left side], relativeX default 2
-	:TextSize(size)
-	:AddColorState(isBorderInsteadText) -> Add red/green colors for [false: text; true: borders]
--> ELib:Radio(parent,text,checked,template)
--> ELib:Popup(title,template)
--> ELib:OneTab(parent,text,isOld)
--> ELib:DropDown(parent,width,lines,template)
-	:SetText(str)		-> [set text]
-	:Tooltip(str)		-> [add tooltip]
-	:Size(width)		-> SetWidth(width)
-	:AddText(text)		-> [add text at left side]
--> ELib:DropDownButton(parent,defText,dropDownWidth,lines,template)
-	:Tooltip(str)		-> [add tooltip]
--> ELib:MultiEdit(parent)
-	:OnChange(func)		-> SetScript("OnTextChanged",func)
-	:Font(...)		-> SetFont(...)
-	:Hyperlinks()		-> enable hyperlinks in text (spells,items,etc)
-	:ToTop()		-> set scroll vaule to min
-	:GetTextHighlight()	-> get highlight positions [start,end]
-	:SetSyntax(syntax)	-> add colored text
--> ELib:Frame(parent,template)
-	:Texture(texture,layer)	-> create and/or set texture
-	:Texture(cR,cG,cB,cA,layer) -> create and/or set texture
-	:TexturePoint(...)	-> add point to texture
-	:TextureSize(...)	-> set size to texture
--> ELib:SliderBox(parent,list)
-	:SetTo(value)		-> [set value from list]
--> ELib:ScrollList(parent,list)
-	:Update()		-> [update list]
-	:FontSize(size)		-> SetFont(font,size)
--> ELib:ScrollCheckList(parent,list)
-	:Update()		-> [update list]
-	:FontSize(size)		-> SetFont(font,size)
--> ELib:ScrollTableList(parent,...)
-				   where ... are width of columns, one always must be 0
-	:Update()		-> [update list]
-	:FontSize(size)		-> SetFont(font,size)
--> ELib:ScrollTabsFrame(parent,...)
--> ELib:ListButton(parent,text,width,lines,template)
-	:Left()			-> [move text to left side]
--> ELib:DebugBack(parent)
 -> ELib:Texture(parent,texture,layer) or ELib:Texture(parent,cR,cG,cB,cA,layer)
 	:Color(r,g,b,a)		-> SetVertexColor(r,g,b,a)
 	:TexCoord(...)		-> SetTexCoord(...)
 	:Gradient(...)		-> SetGradientAlpha(...)
 	:Atlas(...)		-> SetAtlas(...)
--> ELib:ShadowInside(parent,enableBorder,enableLine)
--> ELib:Border(parent,size,colorR,colorG,colorB,colorA,outside,layerCounter)
 
 Tooltips:
 -> ELib.Tooltip:Hide()
@@ -163,7 +162,7 @@ CheckButton	ExRTRadioButtonModernTemplate
 local GlobalAddonName, ExRT = ...
 local isExRT = GlobalAddonName == "ExRT"
 
-local libVersion = 37
+local libVersion = 41
 
 if type(ELib)=='table' and type(ELib.V)=='number' and ELib.V > libVersion then return end
 
@@ -180,18 +179,31 @@ local type, CreateFrame, GameTooltip = type, CreateFrame, GameTooltip
 
 local Mod = nil
 do
-	local function Widget_SetPoint(self,arg1,arg2,arg3,...)
-		if type(arg1) == 'table' or (arg1 == 'x' and not arg2) then
-			if arg1 == 'x' then arg1 = self:GetParent() end
+	local function Widget_SetPoint(self,arg1,arg2,arg3,arg4,arg5)
+		if arg1 == 'x' then arg1 = self:GetParent() end
+		if arg2 == 'x' then arg2 = self:GetParent() end
+
+		if type(arg1) == 'number' and type(arg2) == 'number' then
+			arg1, arg2, arg3 = "TOPLEFT", arg1, arg2
+		end
+
+		if type(arg1) == 'table' and not arg2 then
 			self:SetAllPoints(arg1)
 			return self
 		end
-		if arg1 == 'x' then arg1 = self:GetParent() end
-		if arg2 == 'x' then arg2 = self:GetParent() end
-		if type(arg1) == 'number' then
-			arg2,arg3,arg1 = arg1,arg2,'TOPLEFT'
+
+		if arg5 then 
+			self:SetPoint(arg1,arg2,arg3,arg4,arg5)
+		elseif arg4 then
+			self:SetPoint(arg1,arg2,arg3,arg4)
+		elseif arg3 then
+			self:SetPoint(arg1,arg2,arg3)
+		elseif arg2 then
+			self:SetPoint(arg1,arg2)
+		else
+			self:SetPoint(arg1)
 		end
-		self:SetPoint(arg1,arg2,arg3,...)
+
 		return self
 	end
 	local function Widget_SetSize(self,...)
@@ -261,6 +273,7 @@ do
 			end
 		end
 	end
+	ELib.ModObjFuncs = Mod
 end
 
 --=======================================================================
@@ -346,6 +359,10 @@ if not ExRTFontGrayTemplate then
 	ExRTFontGrayTemplate:SetShadowOffset(1,-1)
 	ExRTFontGrayTemplate:SetTextColor(0.63,0.68,0.69)
 end
+--if IsTestBuild() then
+--	ExRTFontNormal:SetFont(DEFAULT_FONT,select(2,ExRTFontNormal:GetFont()))
+--	ExRTFontGrayTemplate:SetFont(DEFAULT_FONT,select(2,ExRTFontGrayTemplate:GetFont()))
+--end
 
 do
 	local ICONS = {
@@ -2639,10 +2656,22 @@ do
 		self:SetCursorPosition(0)
 		return self
 	end
+	local function Widget_Tooltip_OnEnter(self)
+		self.tooltipText = self:tooltipTextFunc()
+		if self.lockTooltipText then
+			return
+		end
+		ELib.Tooltip.Std(self)
+	end
 	local function Widget_Tooltip(self,text)
-		self:SetScript("OnEnter",ELib.Tooltip.Std)
+		if type(text) == 'function' then
+			self:SetScript("OnEnter",Widget_Tooltip_OnEnter)
+			self.tooltipTextFunc = text
+		else
+			self:SetScript("OnEnter",ELib.Tooltip.Std)
+			self.tooltipText = text
+		end
 		self:SetScript("OnLeave",ELib.Tooltip.Hide)
-		self.tooltipText = text
 		return self
 	end
 	local function Widget_OnChange(self,func)
@@ -2668,7 +2697,7 @@ do
 		if self.leftText then
 			self.leftText:SetText(text)
 		else
-			self.leftText = ELib:Text(self,text,size or 11):Point("RIGHT",self,"LEFT",-5,0)
+			self.leftText = ELib:Text(self,text,size or 11):Point("RIGHT",self,"LEFT",-5,0):Right()
 		end
 		return self
 	end
@@ -2721,6 +2750,17 @@ do
 		return self
 	end
 
+	local function Widget_GetTextHighlight(self,cR,cG,cB,cA)
+		local text,cursor = self:GetText(),self:GetCursorPosition()
+		self:Insert("")
+		local textNew, cursorNew = self:GetText(), self:GetCursorPosition()
+		self:SetText( text )
+		self:SetCursorPosition( cursor )
+		local Start, End = cursorNew, #text - ( #textNew - cursorNew )
+		self:HighlightText( Start, End )
+		return Start, End
+	end
+
 	function ELib:Edit(parent,maxLetters,onlyNum,template)
 		if template == 0 then
 			template = "ExRTInputBoxTemplate"
@@ -2757,7 +2797,8 @@ do
 			'LeftText',Widget_AddLeftText,
 			'TopText',Widget_AddLeftTop,
 			'BackgroundText',Widget_AddBackgroundText,
-			'ColorBorder',Widget_ColorBorder
+			'ColorBorder',Widget_ColorBorder,
+			'GetTextHighlight',Widget_GetTextHighlight
 		)
 
 		return self
@@ -2798,10 +2839,21 @@ do
 			self.ScrollBar:SetValue(val - delta)
 		end
 	end
+	local function CheckHideScroll(self)
+		if not self.HideOnNoScroll then
+			return
+		end
+		if not self.buttonUP:IsEnabled() and not self.buttonDown:IsEnabled() then
+			self:Hide()
+		else
+			self:Show()
+		end
+	end
 	local function ScrollFrameScrollBarValueChanged(self,value)
 		local parent = self:GetParent():GetParent()
 		parent:SetVerticalScroll(value) 
 		self:UpdateButtons()
+		CheckHideScroll(self)
 	end
 	local function ScrollFrameScrollBarValueChangedH(self,value)
 		local parent = self:GetParent():GetParent()
@@ -2812,6 +2864,7 @@ do
 		self.content:SetHeight(newHeight)
 		self.ScrollBar:Range(0,max(newHeight-self:GetHeight(),0),nil,true)
 		self.ScrollBar:UpdateButtons()
+		CheckHideScroll(self.ScrollBar)
 
 		return self
 	end
@@ -2834,6 +2887,13 @@ do
 		self.SetNewWidth = ScrollFrameChangeWidth
 		self.Width = ScrollFrameChangeWidth
 
+		return self
+	end
+
+	local function Widget_HideScrollOnNoScroll(self)
+		self.ScrollBar.HideOnNoScroll = true
+		self.ScrollBar:UpdateButtons()
+		CheckHideScroll(self.ScrollBar)
 		return self
 	end
 
@@ -2871,6 +2931,7 @@ do
 		self.Height = ScrollFrameChangeHeight
 
 		self.AddHorizontal = Widget_AddHorizontal
+		self.HideScrollOnNoScroll = Widget_HideScrollOnNoScroll
 
 		Mod(self)
 		self._Size = self.Size
@@ -3007,7 +3068,23 @@ do
 
 		return self
 	end
+	local function Widget_SetVertical(self)
+		self.Texture:SetGradientAlpha("HORIZONTAL",0.20,0.21,0.25,1, 0.05,0.06,0.09,1)
+		self.TextObj = self:GetTextObj()
+		self.TextObj:SetPoint("CENTER",-5,0)
+		
+		local group = self:CreateAnimationGroup()
+		group:SetScript('OnFinished', function() group:Play() end)
+		local rotation = group:CreateAnimation('Rotation')
+		rotation:SetDuration(0.000001)
+		rotation:SetEndDelay(2147483647)
+		rotation:SetChildKey("TextObj")
+		rotation:SetOrigin('BOTTOMRIGHT', 0, 0)
+		rotation:SetDegrees(90)
+		group:Play()
 
+		return self
+	end
 
 
 	function ELib:Button(parent,text,template)
@@ -3027,6 +3104,7 @@ do
 		self._Disable = self.Disable	self.Disable = Widget_Disable
 		self.GetTextObj = Widget_GetTextObj
 		self.FontSize = Widget_SetFontSize
+		self.SetVertical = Widget_SetVertical
 
 		return self
 	end
@@ -3170,6 +3248,15 @@ do
 end
 
 do
+	local function CheckBoxOnEnter(self)
+		local tooltipTitle = self.text:GetText()
+		local tooltipText = self.tooltipText
+		if tooltipTitle == "" or not tooltipTitle then
+			tooltipTitle = tooltipText
+			tooltipText = nil
+		end
+		ELib.Tooltip.Show(self,"ANCHOR_TOP",tooltipTitle,{tooltipText,1,1,1,true})
+	end
 	local function Click(self)
 		self:GetParent():Click()
 	end
@@ -3188,6 +3275,12 @@ do
 		self.Button:SetScript("OnLeave",ButtonOnLeave)
 		return self
 	end
+	local function Widget_Tooltip(self,text)
+		self.tooltipText = text
+		self:SetScript("OnEnter",CheckBoxOnEnter)
+		self:SetScript("OnLeave",ELib.Tooltip.Hide)
+		return self
+	end
 	function ELib:Radio(parent,text,checked,template)
 		if template == 0 then
 			template = "UIRadioButtonTemplate"
@@ -3201,6 +3294,7 @@ do
 
 		Mod(self)
 		self.AddButton = Widget_TextToButton
+		self.Tooltip = Widget_Tooltip
 
 		return self
 	end
@@ -3500,7 +3594,7 @@ do
 		end
 		parent:Update()
 		if parent.SetListValue then
-			parent:SetListValue(self.index,...)
+			parent:SetListValue(listParent.index,...)
 		end
 		if parent.isCheckList and parent.ValueChanged then
 			parent:ValueChanged()
@@ -3882,6 +3976,14 @@ do
 			self:OnShow()
 		end
 	end
+	local function buttonClose_OnClick(self)
+		local parent = self:GetParent()
+		if parent.CloseClick then
+			parent:CloseClick()
+		else
+			parent:Hide()
+		end
+	end
 	function ELib:Popup(title,template)
 		if template == 0 then
 			template = "ExRTDialogTemplate"
@@ -3912,6 +4014,8 @@ do
 			self.title:SetTextColor(1,1,1,1)
 		end
 		self.title:SetText(title or "")
+
+		self.Close:SetScript("OnClick",buttonClose_OnClick)
 
 		Mod(self)
 
@@ -4041,8 +4145,11 @@ do
 
 		return self
 	end
-	local function Widget_AddText(self,text)
-		self.leftText = ELib:Text(self,text,12):Point("RIGHT",self,"LEFT",-5,0):Right():Middle():Color():Shadow()
+	local function Widget_AddText(self,text,size,extra_func)
+		self.leftText = ELib:Text(self,text,size or 12):Point("RIGHT",self,"LEFT",-5,0):Right():Middle():Color():Shadow()
+		if type(extra_func)=='function' then
+			self.leftText:Run(extra_func)
+		end
 
 		return self
 	end
@@ -4074,6 +4181,9 @@ do
 		self.List = {}
 		self.Width = width
 		self.Lines = lines or 10
+		if lines == -1 then
+			self.Lines = nil
+		end
 
 		if template == "ExRTDropDownMenuModernTemplate" then
 			self.isModern = true
@@ -4265,6 +4375,8 @@ local function ScrollDropDown_DefaultCheckFunc(self)
 	self:Click()
 end
 
+local IsDropDownCustom
+
 function ELib.ScrollDropDown.ClickButton(self)
 	if ELib.ScrollDropDown.DropDownList[1]:IsShown() then
 		ELib:DropDownClose()
@@ -4276,6 +4388,7 @@ function ELib.ScrollDropDown.ClickButton(self)
 	else
 		dropDown = self:GetParent()
 	end
+	IsDropDownCustom = nil
 	ELib.ScrollDropDown.ToggleDropDownMenu(dropDown)
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 end
@@ -4377,6 +4490,7 @@ function ELib.ScrollDropDown:Reload(level)
 					button.leaveFunc = data.leaveFunc
 					button.hoverArg = data.hoverArg
 					button.checkFunc = data.checkFunc
+					button.tooltip = data.tooltip
 
 					if not data.checkFunc then
 						button.checkFunc = ScrollDropDown_DefaultCheckFunc
@@ -4416,7 +4530,6 @@ function ELib.ScrollDropDown.UpdateChecks()
 	end
 end
 
-
 function ELib.ScrollDropDown.Update(self, elapsed)
 	if ( not self.showTimer or not self.isCounting ) then
 		return
@@ -4440,9 +4553,18 @@ function ELib.ScrollDropDown.OnButtonEnter(self)
 	if func then
 		func(self,self.hoverArg)
 	end
+	if self.tooltip then
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:AddLine(self.tooltip)
+		GameTooltip:Show()
+	end
 	ELib.ScrollDropDown:CloseSecondLevel(self.Level)
 	if self.subMenu then
-		ELib.ScrollDropDown.ToggleDropDownMenu(self,2)
+		if IsDropDownCustom then
+			ELib.ScrollDropDown.ToggleDropDownMenu(self,2,self.subMenu,IsDropDownCustom)
+		else
+			ELib.ScrollDropDown.ToggleDropDownMenu(self,2)
+		end
 	end
 end
 function ELib.ScrollDropDown.OnButtonLeave(self)
@@ -4450,16 +4572,25 @@ function ELib.ScrollDropDown.OnButtonLeave(self)
 	if func then
 		func(self)
 	end
+	if self.tooltip then
+		GameTooltip_Hide()
+	end
 end
 
-function ELib.ScrollDropDown.ToggleDropDownMenu(self,level)
+function ELib.ScrollDropDown.EasyMenu(self,list,customWidth)
+	IsDropDownCustom = customWidth or 200
+	ELib.ScrollDropDown.ToggleDropDownMenu(self,nil,list,customWidth)
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+end
+
+function ELib.ScrollDropDown.ToggleDropDownMenu(self,level,customList,customWidth)
 	level = level or 1
 	if self.ToggleUpadte then
 		self:ToggleUpadte()
 	end
 
 	if level == 1 then
-		if self.isModern then
+		if self.isModern or customList then
 			ELib.ScrollDropDown.DropDownList = ScrollDropDown_Modern
 		else
 			ELib.ScrollDropDown.DropDownList = ScrollDropDown_Blizzard
@@ -4470,16 +4601,15 @@ function ELib.ScrollDropDown.ToggleDropDownMenu(self,level)
 	end
 	local dropDown = ELib.ScrollDropDown.DropDownList[level]
 
-	local dropDownWidth = self.Width
-	local isModern = self.isModern
+	local dropDownWidth = customWidth or (type(self.Width)=='number' and self.Width) or (customList and 200) or IsDropDownCustom or 200
+	local isModern = self.isModern or (customList and true)
 	if level > 1 then
 		local parent = ELib.ScrollDropDown.DropDownList[1].parent
-		dropDownWidth = parent.Width
-		isModern = parent.isModern
+		dropDownWidth = (type(parent.Width)=='number' and parent.Width) or IsDropDownCustom or 200
+		isModern = parent.isModern or (customList and true)
 	end
 
-
-	dropDown.List = self.subMenu or self.List
+	dropDown.List = customList or self.subMenu or self.List
 
 	local count = #dropDown.List
 
@@ -4523,7 +4653,12 @@ function ELib.ScrollDropDown.ToggleDropDownMenu(self,level)
 	end
 	dropDown:ClearAllPoints()
 	if level > 1 then
-		dropDown:SetPoint("TOPLEFT",self,"TOPRIGHT",level > 1 and ELib.ScrollDropDown.DropDownList[level-1].Slider:IsShown() and 24 or 12,isModern and 8 or 16)
+		if dropDownWidth and dropDownWidth + ELib.ScrollDropDown.DropDownList[level-1]:GetRight() > GetScreenWidth() then
+			dropDown:SetPoint("TOP",self,"TOP",0,8)
+			dropDown:SetPoint("RIGHT",ELib.ScrollDropDown.DropDownList[level-1],"LEFT",-5,0)
+		else
+			dropDown:SetPoint("TOPLEFT",self,"TOPRIGHT",level > 1 and ELib.ScrollDropDown.DropDownList[level-1].Slider:IsShown() and 24 or 12,isModern and 8 or 16)
+		end
 	else
 		local toggleX = self.toggleX or -16
 		local toggleY = self.toggleY or 0
@@ -6035,4 +6170,358 @@ function ELib:DecorationLine(parent,isGradient,layer,layerCounter)
 	Mod(self)
 
 	return self
+end
+
+do 
+	local function Widget_SetSize(self,width,height)
+		self.Width = width - 16
+		self.Height = height
+
+		return self:__SetSize(width,height)
+	end
+
+	local function ButtonLevel1Click(self)
+		local parent = self:GetParent():GetParent()
+		local uid = self.uid
+		parent.stateExpand[uid] = not parent.stateExpand[uid]
+		parent:Update()
+	end
+	local function ButtonLevel2Click(self)
+		local parent = self:GetParent():GetParent():GetParent():GetParent()
+		parent.ButtonClick(self)
+	end
+	local function ButtonLevel2OnDragStart(self)
+		if self:IsMovable() then
+			if not self.data and not self.data.drag then
+				return
+			end
+
+			self.poins = {}
+			for i=1,self:GetNumPoints() do
+				self.poins[i] = {self:GetPoint()}
+			end
+
+			GameTooltip_Hide()
+
+			self:StartMoving()
+		end
+	end
+	local function ButtonLevel2OnDragStop(self)
+		self:StopMovingOrSizing()
+
+		if not self.poins then
+			return
+		end
+
+		local parent = self:GetParent():GetParent()
+		if parent.ModOnDrag then
+			parent:ModOnDrag()
+		end
+
+		self:ClearAllPoints()
+		for i=1,#self.poins do
+			self:SetPoint(unpack(self.poins[i]))
+		end
+		self.poins = nil
+	end
+
+	local function GetButton(self,level,uid)
+		local list = self["button"..level]
+		local firstHidden
+		for v in pairs(list) do
+			if v.uid == uid then
+				v.toHide = false
+				v.prevUid = v.uid
+				return v
+			elseif not v:IsShown() and not firstHidden then
+				firstHidden = v
+			end
+		end
+		if firstHidden then
+			firstHidden.prevUid = nil
+			firstHidden.uid = uid
+			firstHidden.toHide = false
+			return firstHidden
+		end
+		local button = ELib:Button(self.C," "):OnClick(level == 1 and ButtonLevel1Click or ButtonLevel2Click)
+		self["button"..level][button] = true
+
+		local textObj = button:GetTextObj()
+		textObj:ClearAllPoints()
+		textObj:SetJustifyH("LEFT")
+		if level == 1 then
+			textObj:SetPoint("LEFT",5,0)
+			textObj:SetPoint("RIGHT",-5-18,0)
+		elseif level == 2 then
+			textObj:SetPoint("LEFT",3,0)
+			textObj:SetPoint("RIGHT",-3,0)
+		end
+		textObj:SetPoint("TOP",0,0)
+		textObj:SetPoint("BOTTOM",0,0)
+
+		if level == 1 then
+			button.expandIcon = ELib:Icon(button,"Interface\\AddOns\\ExRT\\media\\DiesalGUIcons16x256x128",18):Point("RIGHT",-5,0)
+		end
+
+		if level == 2 then
+			button:SetScript("OnDragStart", ButtonLevel2OnDragStart)
+			button:SetScript("OnDragStop", ButtonLevel2OnDragStop)
+		end
+
+		button.sub = CreateFrame("Frame",nil,button)
+		button.sub:Hide()
+		button.sub:SetPoint("TOPLEFT",button,"BOTTOMLEFT",0,-1)
+		button.sub:SetPoint("TOPRIGHT",button,"BOTTOMRIGHT",0,-1)
+		ELib:Border(button.sub,1,0,0,0,1)
+
+		button.sub.back = button.sub:CreateTexture(nil,"BACKGROUND")
+		button.sub.back:SetAllPoints()
+		button.sub.back:SetColorTexture(.2,.2,.2,.9)
+
+		if self.ModButton then
+			self:ModButton(button,level)
+		end
+
+		button.uid = uid
+		button.toHide = false
+
+		return button
+	end
+	local function GetGroupText(self,uid)
+		local list = self.groupText
+		local firstHidden
+		for v in pairs(list) do
+			if v.uid == uid then
+				v.toHide = false
+				return v
+			elseif not v:IsShown() and not firstHidden then
+				firstHidden = v
+			end
+		end
+		if firstHidden then
+			firstHidden.uid = uid
+			firstHidden.toHide = false
+			return firstHidden
+		end
+		local text = ELib:Text(self.C,"",14):Color()
+		self.groupText[text] = true
+
+		if self.ModGroup then
+			self:ModGroup(text)
+		end
+
+		text.uid = uid
+		text.toHide = false
+
+		return text
+	end
+
+	local function Widget_Update(self,forceUpdate)
+		if not self.Width or not self.Height then
+			return
+		end
+
+		local data = self.data
+		local fromTop = self.FirstButtonPaddingFromTop or 5
+		local buttonWidth = (self.ButtonWidth or (self.Width - 10 - 10 - 10)/(self.ButtonsInLine or 3))
+
+		local scroll = self.ScrollBar:GetValue()
+
+		for level=1,2 do
+			local list = self["button"..level]
+			for v in pairs(list) do
+				v.toHide = true
+			end
+		end
+		do
+			local list = self.groupText
+			for v in pairs(list) do
+				v.toHide = true
+			end
+		end
+
+		local BUTTON_HEIGHT = 20
+		local GROUP_HEIGHT = 15
+
+		for i=1,#data do
+			local now = data[i]
+
+			local uid = now.uid or now.name
+
+			local topStart = fromTop
+
+			fromTop = fromTop + 30 + 5
+
+			if self.stateExpand[uid] then
+				local subTop = 5
+
+				local subData = now.data
+				local widthNow = 0
+				if subData then
+					for j=1,#subData do
+						local subNow = subData[j]
+						if subNow == 0 then
+							widthNow = 0
+							subTop = subTop + BUTTON_HEIGHT + 5
+						elseif type(subNow) == "string" then
+							if widthNow > 0 then
+								widthNow = 0
+								subTop = subTop + BUTTON_HEIGHT + 5
+							end
+
+							subTop = subTop + GROUP_HEIGHT + 5
+						else
+							widthNow = widthNow + buttonWidth + 5
+							if widthNow >= (self.Width - 20) then
+								widthNow = 0
+								subTop = subTop + BUTTON_HEIGHT + 5
+							end
+						end
+					end
+				end
+
+				fromTop = fromTop + 5 + subTop + (widthNow > 0 and BUTTON_HEIGHT or 0)
+			end
+
+			if (topStart <= scroll + self.Height) and (fromTop >= scroll) then
+				local isUpdateReq = forceUpdate
+
+				local button = GetButton(self,1,uid or tostring(now))
+				button:Point("TOP",0,-topStart):Size(self.Width - 10,30)
+				
+				isUpdateReq = isUpdateReq or (button.uid ~= button.prevUid) or ((self.stateExpand[uid] and not button.sub:IsShown()) or (not self.stateExpand[uid] and button.sub:IsShown()))
+				if isUpdateReq then
+					button:SetText(now.name or "")
+					button.data = now
+					if self.ModButtonUpdate then
+						self:ModButtonUpdate(button,1)
+					end
+				end
+				button:Show()
+
+				if self.stateExpand[uid] then
+					local subTop = 5
+	
+					local subData = now.data
+					local widthNow = 0
+					if subData then
+						for j=1,#subData do
+							local subNow = subData[j]
+							if subNow == 0 then
+								widthNow = 0
+								subTop = subTop + BUTTON_HEIGHT + 5
+							elseif type(subNow) == "string" then
+								if widthNow > 0 then
+									widthNow = 0
+									subTop = subTop + BUTTON_HEIGHT + 5
+								end
+	
+								local groupText = GetGroupText(self,subNow..tostring(subData))
+								if isUpdateReq then
+									groupText:SetParent(button.sub)
+									groupText:Point("TOPLEFT",15,-subTop):Size(buttonWidth,GROUP_HEIGHT)
+									groupText:SetText(subNow)
+								end
+								groupText:Show()
+	
+								subTop = subTop + GROUP_HEIGHT + 5
+							else
+								local subUid = subNow.uid or subNow.name
+								local subButton = GetButton(self,2,subUid or tostring(subNow))
+								if isUpdateReq then
+									subButton:SetParent(button.sub)
+									subButton:ClearAllPoints()
+									subButton:Point("TOPLEFT",5+widthNow,-subTop):Size(buttonWidth,BUTTON_HEIGHT)
+									subButton:SetText(subNow.name or "")
+									subButton.data = subNow
+
+									if subNow.drag then
+										subButton:SetMovable(true)
+										subButton:RegisterForDrag("LeftButton")
+									else
+										subButton:SetMovable(false)
+									end
+
+									if self.ModButtonUpdate then
+										self:ModButtonUpdate(subButton,2)
+									end
+								end
+								subButton:Show()
+
+								widthNow = widthNow + buttonWidth + 5
+								if widthNow >= (self.Width - 20) then
+									widthNow = 0
+									subTop = subTop + BUTTON_HEIGHT + 5
+								end
+							end
+						end
+					end
+	
+					if isUpdateReq then
+						button.expandIcon.texture:SetTexCoord(0.25,0.3125,0.5,0.625)
+						button.sub:Show()
+						button.sub:SetHeight(5 + subTop + (widthNow > 0 and BUTTON_HEIGHT or 0))
+					end
+				else
+					if isUpdateReq then
+						button.expandIcon.texture:SetTexCoord(0.375,0.4375,0.5,0.625)
+						button.sub:Hide()
+					end
+				end
+			end
+		end
+		for level=1,2 do
+			local list = self["button"..level]
+			for v in pairs(list) do
+				if v.toHide then
+					v:Hide()
+					if level == 1 then
+						v.uid = nil
+					end
+				end
+			end
+		end
+		do
+			local list = self.groupText
+			for v in pairs(list) do
+				if v.toHide then
+					v:Hide()
+				end
+			end
+		end
+
+		fromTop = fromTop + 5
+		self.ScrollBar:SetMinMaxValues(0,max(1,fromTop-self.Height))
+		self.C:SetHeight(fromTop)
+
+		self:SetVerticalScroll(scroll)
+
+		if self.ModUpdate then
+			self:ModUpdate(forceUpdate,scroll)
+		end
+
+		return self
+	end
+	local function Widget_ScrollOnChange(self,value)
+		local parent = self:GetParent():GetParent()
+		parent:Update() 
+		self:UpdateButtons()
+	end
+	function ELib:ScrollButtonsList(parent)
+		local self = ELib:ScrollFrame(parent)
+
+		self.__SetSize = self.SetSize
+		self.SetSize = Widget_SetSize
+
+		self.ScrollBar.slider:SetScript("OnValueChanged", Widget_ScrollOnChange)
+
+		self.Update = Widget_Update
+
+		self.stateExpand = {}
+
+		self.button1, self.button2 = {}, {}
+		self.groupText = {}
+
+		return self
+	end
 end
